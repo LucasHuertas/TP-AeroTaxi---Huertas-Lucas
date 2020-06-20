@@ -1,13 +1,19 @@
 package PaquetePrincipal;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String nombre;
     private String apellido;
-    private String dni;
+    private int dni;
     private int edad;
 
-    public Usuario(String nombre, String apellido, String dni, int edad){
+    public Usuario(){}
+
+    public Usuario(String nombre, String apellido, int dni, int edad){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -30,11 +36,11 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
@@ -44,5 +50,15 @@ public class Usuario {
 
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    @Override
+    public String toString() {
+        return "----------------------------------------" +
+               "\nNombre: " + nombre +
+               "\nApellido: " + apellido +
+               "\nDNI: " + dni +
+               "\nEdad: " + edad +
+               "\n----------------------------------------";
     }
 }
