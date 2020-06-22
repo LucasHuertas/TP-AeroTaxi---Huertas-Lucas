@@ -1,6 +1,9 @@
 package PaquetePrincipal;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -10,71 +13,94 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Usuario nuevo = new Usuario("Lucas", "Huertas", 37399574, 27);
-        Usuario nuevo2 = new Usuario("Jose", "Casella", 37399570, 26);
-        Usuario nuevo3 = new Usuario("Sharon", "Zeballos", 37399572, 23);
+        Aerolinea miAerolinea = new Aerolinea();
         Login login = new Login();
+
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Avion> aviones = new ArrayList<>();
+        ArrayList<Vuelo> vuelos = new ArrayList<>();
         File fileU = new File("Usuarios.dat");
         File fileA = new File("Aviones.dat");
         File fileV = new File("Vuelos.dat");
 
-        ManejoArchivos manejador = new ManejoArchivos();
+        boolean menu = true;
+        Menu.menuTitle();
 
-        int menu = 1;
-        menuPrincipal();
-
-        while(menu != 0)
+        while(menu)
         {
-            menu = scanner.nextInt();
+            int opcion;
+            Menu.menuPrincipal();
 
-            switch (menu)
+            salida.println("\nIngrese una opcion: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion)
             {
                 case 0:
-                    salida.println("\nCerrando el programa... ");
+                    salida.println("\nCerrando el programa. Gracias por utilizar AeroTaxi! ");
+                    menu = false;
                     break;
                 case 1:
-                    manejador.cargarElemento(nuevo, fileU);
-                    manejador.mostrarArchivo(fileU);
+                    // ----------------- Iniciar sesion ---------------------//
+                    boolean accede;
+                    int opcion2;
+
+                    accede = login.iniciarSesion(fileU);
+                    pause();
+
+                    while(accede) {
+
+                        Menu.menuUsuario();
+                        salida.println("\nIngrese una opcion: ");
+                        opcion2 = scanner.nextInt();
+
+                        switch (opcion2) {
+                            case 0:
+                                salida.println("\nCerrando sesion. Volviendo al menu principal... ");
+                                accede = false;
+                                pause();
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            default:
+                                salida.println("\nNo existe esa opcion. Intente nuevamente. ");
+                                break;
+                        }
+                    }
+
+                    // ------------------------------------------------------//
                     break;
                 case 2:
-                    manejador.cargarElemento(login.registrarUsuario(), fileU);
+                    // Registrarse
+                    login.registrarNuevoUsuario(fileU);
+                    pause();
                     break;
                 case 3:
+                    // Solo administradores
+                    salida.println("\nInfo de los archivos: ");
+                    salida.println("Archivo de usuarios registrados: \n");
+                    ManejoArchivos.mostrarArchivo(fileU);
+                    pause();
                     break;
                 default:
                     salida.println("\nNo existe esa opcion. Intente nuevamente. ");
                     break;
             }
         }
+
     }
 
-    public static void menuPrincipal(){
-        salida.println("\n");
-        salida.println(" ******************************************** ");
-        salida.println(" **************** AERO TAXI ***************** ");
-        salida.println(" ******************************************** ");
-        salida.println("\n");
-        salida.println("\n");
-        salida.println("\n1- Iniciar Sesion ");
-        salida.println("\n2- Registrarse ");
-        salida.println("\n3- Solo Administradores ");
-
-        salida.println("\n\nElija una opcion: ");
+    public static void pause(){
+        Scanner detener = new Scanner(System.in);
+        String pausa;
+        salida.println("\nPresione ENTER para continuar... ");
+        pausa = detener.nextLine();
     }
 
-    public static void menuRegistro(){
-        salida.println("\n");
-        salida.println(" ******************************************** ");
-        salida.println(" **************** AERO TAXI ***************** ");
-        salida.println(" ******************************************** ");
-        salida.println("\n");
-        salida.println("\n");
-        salida.println("\n1- Escribir en archivo ");
-        salida.println("\n2- Guardar en archivo ");
-
-        salida.println("\n\nElija una opcion: ");
-    }
-    
 }
 
 

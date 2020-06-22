@@ -52,6 +52,8 @@ public class Usuario implements Serializable {
         this.edad = edad;
     }
 
+    public void solicitarVuelo(){}
+
     @Override
     public String toString() {
         return "----------------------------------------" +

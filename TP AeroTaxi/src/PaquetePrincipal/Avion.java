@@ -55,4 +55,15 @@ public abstract class Avion {
     public void setPropulsion(String propulsion) {
         this.propulsion = propulsion;
     }
+
+    @Override
+    public String toString() {
+        return "----------------------------------------" +
+                "\nCapacidad de conbustible: " + capConbustible +
+                "\nCosto por kilometro: " + costoKm +
+                "\nCapacidad de pasajeros: " + capPasajeros +
+                "\nVelocidad maxima: " + velocidadMax +
+                "\nPropulsion: " + propulsion +
+                "\n----------------------------------------";
+    }
 }

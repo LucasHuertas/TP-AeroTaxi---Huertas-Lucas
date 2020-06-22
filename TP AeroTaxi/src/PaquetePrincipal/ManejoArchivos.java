@@ -1,12 +1,15 @@
 package PaquetePrincipal;
 
+import com.sun.org.apache.xpath.internal.objects.XObject;
+
 import java.io.*;
+import java.util.ArrayList;
 
 public class ManejoArchivos {
 
     public ManejoArchivos(){}
 
-    public void cargarElemento(Object obj, File file) {
+    public static void cargarElemento(Object obj, File file) {
 
         boolean existe = file.exists();
 
@@ -23,14 +26,14 @@ public class ManejoArchivos {
         }
     }
 
-    public void mostrarArchivo(File file) {
+    public static void mostrarArchivo(File file) {
 
         Object aux;
         String nombreDelArchivo = file.getName();
 
         try {
-            FileInputStream bn = new FileInputStream(nombreDelArchivo);
-            ObjectInputStream fobj = new ObjectInputStream(bn);
+            FileInputStream fReader = new FileInputStream(nombreDelArchivo);
+            ObjectInputStream fobj = new ObjectInputStream(fReader);
             aux = fobj.readObject();
 
             while (aux != null) {
@@ -45,5 +48,8 @@ public class ManejoArchivos {
         } catch (IOException ex) {
             //-
         }
+    }
+
+    public static void archivoToArraylist(ArrayList<Object> objs, File file){
     }
 }
